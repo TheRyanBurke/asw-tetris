@@ -1,3 +1,39 @@
+Tetris Co-op VR
+==========
+
+By [Ansible Games](https://twitter.com/AnsibleGames)
+
+* Ryan Burke
+
+### About
+
+This is an experimental project to see how easy it is to build on top of the Leap Motion VR quickstart for JS.
+
+The target game experience is to have one player playing traditional Tetris on a browser of his/her choice (desktop or mobile). The second player is managing the Tetromino queue using an Oculus Rift + Leap Motion VR setup. The two players must verbally communicate to keep the game going as long as possible.
+
+HTML5 Tetris forked from: https://github.com/jbouny/asw-tetris
+
+Leap Motion VR quickstart: https://github.com/leapmotion-examples/javascript/tree/master/v2/vr-quickstart
+
+Trello project: https://trello.com/b/UO0IhQcy/tetris-co-op-vr
+
+### Requirements
+
+1. Oculus Rift DK2 with 0.4.4+ runtime
+1. Leap Motion with 2.2.1+ runtime 
+1. Leap Motion mounted to DK2 front https://www.leapmotion.com/product/vr
+1. FireFox VR Beta for VR player http://vrhelloworld.com/builds/
+
+### Running
+
+1. Clone this project
+1. Use a local web host like mongoose or tinyweb to serve files
+1. Tetris player can use any browser to start playing
+1. VR player must use Firefox VR Beta build: http://vrhelloworld.com/builds/
+
+
+Jeremy's original readme to follow-
+
 ASW-Tetris : A Scalable Web Tetris
 ==========
 
