@@ -57,10 +57,11 @@ $( function() {
 	Window.PrevViewCallback = function() { Display.SelectPrev(); };
 	Window.PauseCallback = function() { Game.Pause(); Display.ms_View.Display(); };
 	Window.ReloadCallback = function() { Game.Reload(); Display.ms_View.Display(); };
+	Window.QueueCallback = function() { Game.PushShapeQueue(); Display.ms_View.Display(); };
 	
 	Display.Select( '2d' );
 	
 	// Start the game
 	setTimeout( "MainLoop()", Game.GetTimeout() );
-	Play( 'assets/mp3/tetris.mp3' );
+	//Play( 'assets/mp3/tetris.mp3' );
 } );

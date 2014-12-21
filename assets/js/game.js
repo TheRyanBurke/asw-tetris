@@ -101,7 +101,6 @@ var ShapeFactory =
 		5: [ [ 0, 1, 0 ], [ 1, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ],
 		6: [ [ 0, 1, 1 ], [ 1, 1, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ]
 	},
-	ms_NextShape: 0,
 	CreateShape: function( inType )
 	{
 		var aBlocks = this.ms_Shapes[inType];
@@ -135,20 +134,15 @@ var ShapeFactory =
 	},
 	RandomShape: function()
 	{
-		var aNewType = this.ms_NextShape;
-		this.ms_NextShape = Math.floor( Math.random() * 7 );
-		return ShapeFactory.CreateShape( aNewType );
-	},
-	Next: function()
-	{
-		return this.RevertType[this.ms_NextShape];
-	},
+		return ShapeFactory.CreateShape( Math.floor( Math.random() * 7 ) );
+	}
 };
 
 /**
  * Game core
  */
 var Game = {
+	ms_ShapeQueue: [],
 	ms_Shape: null,
 	ms_Blocks: null,
 	ms_IsEnd: false,
@@ -160,6 +154,8 @@ var Game = {
 	{
 		// Get an alea shape at the beginning
 		this.ms_Shape = ShapeFactory.RandomShape();
+		
+		this.ms_ShapeQueue = [];
 		
 		// Initialize game board
 		this.ms_Blocks = new Array( Config.ms_GameHeight );
@@ -174,7 +170,7 @@ var Game = {
 		{
 			// If the current shape is stopped, create a new shape
 			var aShape = this.ms_Shape;
-			this.ms_Shape = ShapeFactory.RandomShape();
+			this.ShiftShapeQueue();
 			for( var i = 0; i < aShape.m_Blocks.length; ++i ) 
 			{
 				var aBlock = aShape.m_Blocks[i];
@@ -191,6 +187,38 @@ var Game = {
 			}
 		}
 		Display.DisplayInfos();
+	},
+	
+	ShiftShapeQueue: function()
+	{
+		if(this.ms_ShapeQueue.length < 1) {
+			// _todo_ penalize players for empty queue?
+			this.ms_Shape = ShapeFactory.RandomShape();
+		} else {
+			this.ms_Shape = this.ms_ShapeQueue.shift();
+		}
+	},
+	
+	PushShapeQueue: function(shape)
+	{
+		if(!shape) {
+			this.ms_ShapeQueue.push(ShapeFactory.RandomShape());
+		} else {
+			this.ms_ShapeQueue.push(ShapeFactory.CreateShape(shape));
+		}
+	},
+	
+	ShapeQueueToString: function()
+	{
+		var buffer = '';
+		for(var i in this.ms_ShapeQueue) {
+			buffer += ShapeFactory.RevertType[this.ms_ShapeQueue[i].m_Type];
+			buffer += ', ';
+		}
+		if(buffer === '') {
+			buffer = 'EMPTY';
+		}
+		return buffer;
 	},
 	
 	Rotate: function()
@@ -274,6 +302,7 @@ var Game = {
 		this.ms_IsEnd = false;
 		this.ms_IsPause = false;
 		this.ms_Shape = ShapeFactory.RandomShape();
+		this.ms_ShapeQueue = [];
 		this.ms_Blocks = new Array( Config.ms_GameHeight );
 		for( var i = 0; i < Config.ms_GameHeight; ++i )
 			this.ms_Blocks[i] = new Array( Config.ms_GameWidth );

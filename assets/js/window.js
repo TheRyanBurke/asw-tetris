@@ -13,6 +13,7 @@ var Window = {
 	ms_MiddleX: 0,
 	ms_MiddleY: 0,
 	ms_Callbacks: {
+		13: "Window.QueueCallback()",			// Add random to queue
 		37: "Window.LeftCallback()",			// Move left
 		38: "Window.RotateCallback()",			// Rotate the shape
 		39: "Window.RightCallback()",			// Move right
@@ -73,6 +74,12 @@ var Window = {
 		// Reload
 		var aReloadAction = function( inEvent ) { Window.CallAction( 82 ); inEvent.stopPropagation(); };
 		$( '#reload' ).click( aReloadAction );
+		
+		// Push Queue
+		var aQueueAction = function( inEvent ) { 
+			Window.CallAction( 13 ); 
+			inEvent.stopPropagation(); 
+		};
 	},
 	UpdateSize: function()
 	{
@@ -119,5 +126,6 @@ var Window = {
 	DownCallback: function() {},
 	ReloadCallback: function() {},
 	NextViewCallback: function() {},
-	PrevViewCallback: function() {}
+	PrevViewCallback: function() {},
+	QueueCallback: function() {}
 };
