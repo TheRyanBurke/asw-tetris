@@ -201,10 +201,17 @@ var Game = {
 	
 	PushShapeQueue: function(shape)
 	{
-		if(!shape) {
+		if(shape === null || shape === undefined) {
 			this.ms_ShapeQueue.push(ShapeFactory.RandomShape());
 		} else {
-			this.ms_ShapeQueue.push(ShapeFactory.CreateShape(shape));
+			shape = '' + shape;
+			if(Object.keys(ShapeFactory.ms_Shapes).indexOf(shape) != -1) {
+				this.ms_ShapeQueue.push(ShapeFactory.CreateShape(shape));
+			} else if(Object.keys(ShapeFactory.Type).indexOf(shape) != -1) {
+				this.ms_ShapeQueue.push(ShapeFactory.CreateShape(ShapeFactory.Type[shape]));
+			} else {
+				return;
+			}
 		}
 	},
 	

@@ -45,6 +45,7 @@ $( function() {
 	Window.Initialize();
 	Game.Initialize();
 	Display.Initialize( aViewers );
+	Network.Connect();
 	
 	// Initialize the Wrapping that permits to link the user, the game and the current viewer
 	Window.RotateCallback = function() { Game.Rotate(); Display.ms_View.Display(); };
