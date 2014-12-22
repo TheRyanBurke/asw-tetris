@@ -18,8 +18,9 @@
     <script src="assets/libs/vr/VRControls.js"></script>
     <script src="assets/libs/vr/VREffect.js"></script>
 
-    <script src="//js.leapmotion.com/leap-0.6.3.min.js"></script>
-    <script src="//js.leapmotion.com/leap-plugins-0.1.9.min.js"></script>
+    <script src="//js.leapmotion.com/leap-0.6.4.min.js"></script>
+    <!-- <script src="//js.leapmotion.com/leap-plugins-0.1.10.js"></script> -->
+	<script src="assets/libs/vr/leap-plugins-0.1.11pre.js"></script>
 	</head>
 
 	<body>
@@ -107,63 +108,7 @@
   scene.add(cube);
 
 
-  // right
-  cubeMesh = new THREE.MeshPhongMaterial({color: 0x0000cc});
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(0.3,-0.03,-0.06);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(0.3,-0.03,0.06);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(0.42,-0.03,-0.06);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(0.42,-0.03,0.06);
-  scene.add(cube);
-
-  // left
-  cubeMesh = new THREE.MeshPhongMaterial({color: 0xcc0000});
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(-0.3,-0.03,-0.06);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(-0.3,-0.03,0.06);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(-0.42,-0.03,-0.06);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(-0.42,-0.03,0.06);
-  scene.add(cube);
-
-
-  // back
-  cubeMesh = new THREE.MeshPhongMaterial({color: 0xcccc00});
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(-0.06,-0.03,0.3);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(0.06,-0.03,0.3);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(-0.06,-0.03,0.42);
-  scene.add(cube);
-
-  cube = new THREE.Mesh(cubeGeo, cubeMesh);
-  cube.position.set(0.06,-0.03,0.42);
-  scene.add(cube);
+  
 
 
 
@@ -200,6 +145,10 @@
     arm: true
 
   });
+  
+  Leap.loopController.use('screenPosition');
+  
+  
 
 
 
@@ -221,6 +170,7 @@
     if (event.key === 'f') {
       return vrEffect.setFullScreen(true);
     }
+	console.log(Leap.Hand.screenPosition);
   };
 
   window.addEventListener("keypress", onkey, true);
