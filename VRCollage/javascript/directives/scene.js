@@ -199,12 +199,71 @@ angular.module('directives', [])
 //        dockMesh.rotation.set(0, Math.PI / 4, 0, 0);
 //        camera.add(dockMesh);
 
-        scene.add(dockMesh);
+        //scene.add(dockMesh);
 
 //        var text = createText('Move images up..');
 //        text.position.setZ(-250);
 //        text.position.setY(120);
 //        scene.add(text);
+
+
+// buttons
+  var addButton = function(originX) {
+	  // Add a plane
+
+	  var planeGeo = new THREE.PlaneGeometry(0.1, 0.2);
+	  var material = new THREE.MeshPhongMaterial();
+	  var buttonMesh = new THREE.Mesh(planeGeo, material);
+
+	  buttonMesh.name = "rectangular button";
+
+	//  buttonMesh.scale.setY(0.5);
+
+
+	  var longThrow = 0;
+	  var squareButton = new PushButton(
+
+		new InteractablePlane(buttonMesh, Leap.loopController),
+
+		{
+		  locking: false,
+		  longThrow: longThrow
+		}
+
+	  );
+
+	  squareButton.plane.hover(
+		function(mesh){ // over
+		  console.log('hover in');
+		  mesh.material.color.setHex(0xffccff);
+		},
+		function(mesh){ // out
+		  console.log('hover out');
+		  mesh.material.color.setHex(0xeeeeee);
+		}
+	  );
+
+
+	  var base = new THREE.Mesh(new THREE.BoxGeometry(0.1, longThrow, longThrow), new THREE.MeshPhongMaterial({color: 0x222222}));
+	  base.position.set(originX, 0, -0.5);
+	  base.rotateY(Math.PI * -0.15);
+
+	  buttonMesh.position.set(
+		0,
+		buttonMesh.geometry.parameters.height / 2 - longThrow / 2,
+		-longThrow / 2
+	  );
+	  squareButton.plane.resetPosition(); // resets the original position, etc to the current one
+
+	//  base.rotateX(Math.PI * -0.45);
+	//  base.position.set(0.2,0,0.2);
+
+	  base.add(buttonMesh);
+
+	  scene.add(base);
+  };
+
+  addButton(0.05);
 
 
         // these should be on a plane covering everything up...
