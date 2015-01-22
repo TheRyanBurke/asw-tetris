@@ -12,7 +12,7 @@
 	ms_Canvas: null,
 	ms_Context: null,
 	ms_Scale: 0,
-	ms_Colors: [ "#0FF", "#00F", "#F90", "#FF0", "#F00", "#C0F", "#0F0" ],
+	ms_Colors: [ "#0FF", "#00F", "#F90", "#FF0", "#F00", "#C0F", "#0F0", "#FFF" ],
 	
 	Id: function() { return '2d'; },
 	Title: function() { return '2D'; },

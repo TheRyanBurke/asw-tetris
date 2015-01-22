@@ -64,5 +64,5 @@ $( function() {
 	
 	// Start the game
 	setTimeout( "MainLoop()", Game.GetTimeout() );
-	//Play( 'assets/mp3/tetris.mp3' );
+	Play( 'assets/mp3/tetris.mp3' );
 } );

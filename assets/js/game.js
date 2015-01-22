@@ -90,7 +90,7 @@ Shape.prototype.Update = function( inBlocks )
  */
 var ShapeFactory =
 {
-	Type: { I : 0, J : 1, L : 2, O : 3, Z : 4, T : 5, S : 6 },
+	Type: { I : 0, J : 1, L : 2, O : 3, Z : 4, T : 5, S : 6, X : 7 },
 	RevertType: [ 'I', 'J', 'L', 'O', 'Z', 'T', 'S' ],
 	ms_Shapes: { 
 		0: [ [ 0, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ] ],
@@ -170,12 +170,12 @@ var Game = {
 		{
 			// If the current shape is stopped, create a new shape
 			var aShape = this.ms_Shape;
-			this.ShiftShapeQueue();
 			for( var i = 0; i < aShape.m_Blocks.length; ++i ) 
 			{
 				var aBlock = aShape.m_Blocks[i];
 				this.ms_Blocks[Math.round( aBlock.m_Y )][Math.round( aBlock.m_X )] = aBlock	;
 			}
+			this.ShiftShapeQueue();
 			// Check game over
 			if( this.ms_Shape.HasConflict( this.ms_Blocks ) )
 				this.ms_IsEnd = true;
@@ -193,6 +193,7 @@ var Game = {
 	{
 		if(this.ms_ShapeQueue.length < 1) {
 			// _todo_ penalize players for empty queue?
+			this.AddPenaltyLine();
 			this.ms_Shape = ShapeFactory.RandomShape();
 		} else {
 			this.ms_Shape = this.ms_ShapeQueue.shift();
@@ -267,6 +268,35 @@ var Game = {
 					this.ms_Blocks[i][j].m_Y++;
 			}
 		}
+	},
+
+	AddPenaltyLine: function()
+	{
+		for( var i = 0; i < Config.ms_GameHeight; ++i )
+		{
+			for( var j = 0; j < Config.ms_GameWidth; ++j )
+			{
+				if(i < Config.ms_GameHeight - 1)
+					this.ms_Blocks[i][j] = this.ms_Blocks[i+1][j];
+				if( this.ms_Blocks[i][j] != null )
+					this.ms_Blocks[i][j].m_Y--;
+			}
+		}
+		for( var j = 0; j < Config.ms_GameWidth; ++j )
+		{
+			this.ms_Blocks[Config.ms_GameHeight-1][j] = null;
+		}
+		for( var j = 0; j < Config.ms_GameWidth; ++j )
+		{
+			if(Math.random() > 0.45) {
+				this.ms_Blocks[Config.ms_GameHeight-1][j] = {
+					m_Type: 7,
+					m_X: j,
+					m_Y: 0
+				};
+			}
+		}
+
 	},
 	
 	CheckLines: function()
