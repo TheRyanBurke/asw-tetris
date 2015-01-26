@@ -224,7 +224,7 @@ var Game = {
 			buffer += ', ';
 		}
 		if(buffer === '') {
-			buffer = 'EMPTY';
+			buffer = 'OH GOD THE QUEUE IS EMPTY! GET YOUR PARTNER TO ADD A PIECE!!!';
 		}
 		return buffer;
 	},

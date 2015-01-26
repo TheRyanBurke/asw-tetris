@@ -13,6 +13,6 @@ var Config =
 	ms_GameHeight: 24,
 	
 	ms_LinesLevel: 5,
-	ms_BaseTimeout: 250,
+	ms_BaseTimeout: 500,
 	ms_EvolTimeout: 0.80,
 };
